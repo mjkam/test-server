@@ -7,13 +7,10 @@ phases:
       - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 468699184395.dkr.ecr.ap-northeast-2.amazonaws.com
   build:
     commands:
-      - echo Build started on `date`
-      - echo Building the Docker image...
+      - ./gradlew assemble
       - docker build -t deploy .
       - docker tag deploy:latest 468699184395.dkr.ecr.ap-northeast-2.amazonaws.com/deploy:latest
-      - echo Build completed on `date`
-      - echo Pushing the Docker image...
-      - docker push 468699184395.dkr.ecr.ap-northeast-2.amazonaws.com/deploy:latest
   post_build:
     commands:
-      - aws ecs update-service --cluster DevCluster --service hello-service --force-new-deployment
+      - docker push 468699184395.dkr.ecr.ap-northeast-2.amazonaws.com/deploy:latest
+      - aws ecs update-service --cluster DevCluster --service hello-service --region ap-northeast-2 --force-new-deployment
