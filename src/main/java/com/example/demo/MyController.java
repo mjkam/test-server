@@ -11,4 +11,8 @@ public class MyController {
     public String test() {
         return "deploy version 2: " + UUID.randomUUID();
     }
+
+    @GetMapping("/hello")
+    public void test2() {
+    }
 }
