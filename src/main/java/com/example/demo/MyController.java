@@ -9,6 +9,6 @@ import java.util.UUID;
 public class MyController {
     @GetMapping("/deploy")
     public String test() {
-        return "deploy version 1: " + UUID.randomUUID();
+        return "deploy version 2: " + UUID.randomUUID();
     }
 }
