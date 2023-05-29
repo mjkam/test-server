@@ -1,5 +1,9 @@
 FROM openjdk:11
 
-ADD ./build/libs/demo-0.0.1-SNAPSHOT.jar /
+COPY . /java
 
-CMD ["java","-jar","/demo-0.0.1-SNAPSHOT.jar"]
+WORKDIR /java
+
+RUN ./gradlew build --exclude-task test
+
+CMD ["java","-jar","/java/build/libs/demo-0.0.1-SNAPSHOT.jar"]
